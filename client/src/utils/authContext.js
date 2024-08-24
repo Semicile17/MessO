@@ -49,11 +49,16 @@ export const AuthProvider = ({ children }) => {
       );
       setIsLoggedIn(true);
       setUser(response.data.User);
-      navigate("/profile");
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(()=>{
+    if (user){
+      navigate("/profile");
+    }
+  }, [user])
   // LOGOUT LOGIC
   const onLogout = () => {
     setIsLoggedIn(false);
