@@ -7,7 +7,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A user must have a name'],
     trim: true,
-    minlength: [5, 'A name must have atleast 5 characters'],
     maxlength: [40, 'A name must have atmost 40 characters'],
   },
   email: {
@@ -20,20 +19,22 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'admin'],
+    enum: ['student', 'warden','caretaker'],
     default: 'user',
   },
   photo: {
     type: String,
-  },
-  active: {
-    type: Boolean,
   },
   password: {
     type: String,
     required: [true, 'Please provide a password'],
     minlength: [8, 'A password must have atleast 8 characters'],
     select: false,
+  },
+  hostel:{
+    type:String,
+    enum:['Kailash','Rudra','Kedar'],
+    required:[true,"There should be a hostel name"]
   },
   passwordConfirm: {
     type: String,

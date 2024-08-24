@@ -12,7 +12,7 @@ router
      .post(authController.login);
      
 router
-     .route('/auth')
+     .route('/a')
      .get(authController.protect)     
 
 module.exports = router      
