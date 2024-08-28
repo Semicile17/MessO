@@ -7,7 +7,7 @@ on the management and improving efficiency.
 
 - **Student Mess-Off Requests**: Students can submit mess-off requests for specific dates directly through the platform.
 - **Admin Approval System**: Wardens, caretakers, and admins can review and approve/reject mess-off requests.
-- **Role-Based Access Control**: Secure access for different roles like `warden`, `caretaker`, and `devs`, ensuring that only authorized personnel can access student data and approve requests.
+- **Role-Based Access Control**: Secure access for different roles like `warden`, `caretaker` ensuring that only authorized personnel can access student data and approve requests.
 - **Automated Notifications**: Students receive notifications when their mess-off requests are approved or rejected.
 - **Mobile-Friendly UI**: Responsive design that allows students to access the system via mobile devices.
 - **Real-Time Tracking**: Admins can track the status of requests in real time.
