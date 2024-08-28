@@ -17,7 +17,7 @@ on the management and improving efficiency.
 - **Students**: Can submit mess-off requests and view their status.
 - **Wardens**: Responsible for overseeing requests and managing approvals for their respective hostels.
 - **Caretakers**: Similar to wardens, caretakers can manage the day-to-day handling of mess-off requests.
-- **Devs**: Can monitor the system's technical operations and ensure smooth functionality.
+
 
 ## Installation
 
