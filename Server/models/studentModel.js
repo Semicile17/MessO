@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const Form = require('../models/formModel')
 
-const userSchema = new mongoose.Schema({
+const studentSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'A user must have a name'],
@@ -17,13 +18,25 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: [validator.isEmail, 'Please provide a valid email'], //converts the entered email to lowercase
   },
-  role: {
-    type: String,
-    enum: ['student', 'warden','caretaker'],
-    default: 'user',
+  role:{
+    type:String,
+    default:"student"
   },
   photo: {
     type: String,
+  },
+  forms: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Form",
+    },
+  ],
+  id:{
+    type:Number,
+    required:[true,"A student must have an id"],
+    unique:true,
+    minlength:[2000000,"Invalid student Id"],
+    maxlength:[9999999,"Invalid student Id"]
   },
   password: {
     type: String,
@@ -31,11 +44,18 @@ const userSchema = new mongoose.Schema({
     minlength: [8, 'A password must have atleast 8 characters'],
     select: false,
   },
+
+  branch:{
+    type:String,
+    enum:['ECE','CSE','AIML','EE','ME'],
+    required:[true,"There should be a branch name"]
+  },
   hostel:{
     type:String,
     enum:['Kailash','Rudra','Kedar'],
     required:[true,"There should be a hostel name"]
   },
+  
   passwordConfirm: {
     type: String,
     required: [true, 'Please confirm your password'],
@@ -49,7 +69,7 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
 });
 
-userSchema.pre('save', async function (next) {
+studentSchema.pre('save', async function (next) {
   // runs this function only if the password was modified
   if (!this.isModified('password')) return next();
 
@@ -59,13 +79,13 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-userSchema.methods.correctPassword = async function (
+studentSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
-userSchema.methods.changedPasswordAfter = async function (JWTTimestamp) {
+studentSchema.methods.changedPasswordAfter = async function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
@@ -77,6 +97,6 @@ userSchema.methods.changedPasswordAfter = async function (JWTTimestamp) {
   return false;
 };
 
-const User = mongoose.model('User', userSchema);
+const Student = mongoose.model('Student', studentSchema);
 
-module.exports = User;
+module.exports = Student;

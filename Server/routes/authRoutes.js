@@ -4,15 +4,19 @@ const authController = require('../controllers/authController')
 const router = express.Router();
 
 router
-     .route('/signup')
-     .post(authController.signup)
+     .route('/stu_login')
+     .post(authController.studentLogin); 
 
 router
-     .route('/login')
-     .post(authController.login);
-     
+     .route('/stu_signup')
+     .post(authController.studentSignup);   
+
 router
-     .route('/a')
-     .get(authController.protect)     
+     .route('/adm_login')
+     .post(authController.adminLogin); 
+
+router
+     .route('/adm_signup')
+     .post(authController.adminSignup);        
 
 module.exports = router      
