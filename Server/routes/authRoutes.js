@@ -17,6 +17,10 @@ router
 
 router
      .route('/adm_signup')
-     .post(authController.adminSignup);        
+     .post(authController.adminSignup); 
+     
+router
+     .route('/')
+     .get(authController.protect)     
 
 module.exports = router      

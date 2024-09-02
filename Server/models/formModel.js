@@ -49,6 +49,10 @@ const formSchema = new mongoose.Schema({
     min: [100, "Room number should be above 100"],
     max: [350, "Room number should be above 350"],
   },
+  createdAt:{
+    type:Date,
+    default:Date.now()
+  }
 });
 
 const Form = mongoose.model("Form", formSchema);
