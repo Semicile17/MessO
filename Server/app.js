@@ -1,7 +1,9 @@
 const express = require("express");
 const morgan = require("morgan");
 const rateLimit = require('express-rate-limit');
-const userRouter = require("./routes/userRoutes");
+const studentRouter = require("./routes/studentRoutes");
+const formRouter = require("./routes/formRoutes");
+const authRouter = require("./routes/authRoutes");
 const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
@@ -40,7 +42,10 @@ app.use('/api',limiter);
 app.use(express.json());
 
 // ROUTES
-app.use("/api/v1/users", userRouter);
+// app.use("/api/v1/users", userRouter);
+app.use("/api/v1/forms", formRouter);
+app.use("/api/v1/students",studentRouter);
+app.use("/api/v1/auth",authRouter)
 
 app.all("*", (req, res) => {
   // for handling requests that do not match any of the specefied routes

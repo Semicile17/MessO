@@ -12,35 +12,19 @@ export const AuthProvider = ({ children }) => {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
 
-
-  // SIGNUP LOGIC
-  const onSignup = async (signupData) => {
-    try {
-      const response = await axios.post(
-        `${backendURL}/api/v1/users/signup`,
-        signupData
-      );
-      console.log(response.data);
-      setCookie(
-        "jwt",
-        response.data.token,
-        process.env.REACT_APP_JWT_EXPIRES_IN
-      );
-      setIsLoggedIn(true);
-      setUser(response.data.User);
-      navigate("/profile");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   // LOGIN LOGIC
-  const onLogin = async (email, password) => {
+  const onLogin = async (id, password,login_type) => {
     try {
-      const response = await axios.post(`${backendURL}/api/v1/users/login`, {
-        email,
-        password,
-      });
+      const email = id ;
+      let data; 
+      
+      const route = login_type === "student" ? "stu_login" : "adm_login";
+      if(route==='stu_login'){
+         data = {id,password}
+      }else{
+        data = {email,password}
+      }
+      const response = await axios.post(`${backendURL}/api/v1/auth/${route}`,data);
       console.log(response.data);
       setCookie(
         "jwt",
@@ -48,11 +32,13 @@ export const AuthProvider = ({ children }) => {
         process.env.REACT_APP_JWT_EXPIRES_IN
       );
       setIsLoggedIn(true);
-      setUser(response.data.User);
+      console.log(isLoggedIn);
+      setUser(response.data.Student);
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   useEffect(()=>{
     if (user){
@@ -70,9 +56,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await axios.get(`${backendURL}/api/v1/users/auth`, {
+        const response = await axios.get(`${backendURL}/api/v1/auth`, {
           withCredentials: true,
         });
+        
         setIsLoggedIn(true);
         console.log(response);
         
@@ -92,7 +79,6 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn,
     setUser,
     onLogin,
-    onSignup,
     onLogout,
   };
 
