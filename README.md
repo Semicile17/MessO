@@ -25,4 +25,4 @@ To run MessO locally, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/messo.git
+   git clone https://github.com/Semicile17/messo.git
